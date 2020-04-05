@@ -114,13 +114,15 @@ OS: CentOS 8.1 ( CentOS 7 should also work)
 # Installation 
 run as root
 ```
+cd /opt
+git clone https://github.com/georgekcchung/exim-api.git
 pip3 install pipenv
 useradd exim-api
 ```
 
 run as exim-api user
 ```
-cd exim-api/
+cd /opt/exim-api/
 /usr/local/bin/pipenv install
 ```
 

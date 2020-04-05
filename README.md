@@ -8,12 +8,13 @@ credit: pleshevskiy
 The API server is to provide mail queue information of exim by API
 
 
+# API documentation
 ---
 Get mail queue information
 
 GET /queue
 response:
-
+```
 {
   "code": 0,
   "message": "OK",
@@ -34,6 +35,7 @@ response:
     }
   ]
 }
+```
 
 ---
 Get mail queue count
@@ -41,11 +43,13 @@ Get mail queue count
 GET /queue/count
 
 response:
+```
 {
   "code": 0,
   "count": 9,
   "message": "OK"
 }
+```
 
 
 ---
@@ -54,6 +58,7 @@ Get messageId in the mail queue
 GET /queue/messageId/<messageId>
 response:
 
+```
 {
   "code": 0,
   "message": "found",
@@ -67,6 +72,7 @@ response:
     }
   ]
 }
+```
 
 if the response code is 404, it means the messageId is not found in the mailqueue
 It could mean the mail was sent successfully.
@@ -77,10 +83,12 @@ GET /
 GET /healthcheck
 
 response:
+```
 {
   "code": 0,
   "message": "OK"
 }
+```
 
 ---
 check if the email address is routable to destination from exim's perspective
@@ -88,20 +96,24 @@ check if the email address is routable to destination from exim's perspective
 POST /check/route/
 
 request payload
+```
 { "email" : "email@domain.com" }
+```
 
 response:
+```
 {
   "code": 0,
   "message": "found routable"
 }
+```
 
 
 ======================
-Requirement:
+#Requirement:
 Python 3.6 (3.4-3.8 could work)
 
-Installation 
+#Installation 
 ---
 pip3 install pipenv
 cd exim-api/
@@ -113,7 +125,7 @@ Run in commandline:
 Run as service in systemd:
 
 add app.service in /lib/systemd/system
-----------------------------------------
+```
 [Unit]
 Description=My Python Service
 After=network.target
@@ -127,7 +139,7 @@ ExecStart=/usr/local/bin/pipenv run gunicorn -c gunicorn.conf.py flasky:app
 
 [Install]
 WantedBy=multi-user.target
-----------------------------------------
+```
 
 systemctl daemon-reload
 systemctl start app

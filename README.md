@@ -156,9 +156,16 @@ add exim group to exim-api user by editting /etc/group file
 systemctl start exim-api
 ```
 ## speed up with Meinheld,  a high-performance WSGI-compliant web server, optional
+run as root
+```
+yum group install "Development Tools"
+yum install python36-devel
+```
 run as exim-api user
+```
 /usr/local/bin/pipenv shell
 pip3 install meinheld
+```
 run as root
 edit /lib/systemd/system/exim-api.service
 change ExecStart to

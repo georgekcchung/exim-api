@@ -109,30 +109,39 @@ response:
 
 # Requirement:
 Python 3.6 (3.4-3.8 could work)
+OS: CentOS 8.1 ( CentOS 7 should also work)
 
 # Installation 
+run as root
 ```
 pip3 install pipenv
-cd exim-api/
-pipenv install
+useradd exim-api
 ```
+
+run as exim-api user
+```
+cd exim-api/
+/usr/local/bin/pipenv install
+```
+
+edit gunicorn.conf.py and config.py for binding IP address
 
 ## Run in commandline:
 /usr/local/bin/pipenv run gunicorn -c gunicorn.conf.py flasky:app
 
 ## Run as service in systemd:
 
-add app.service in /lib/systemd/system
+add exim-api.service in /lib/systemd/system
 ```
 [Unit]
 Description=My Python Service
 After=network.target
 
 [Service]
-User=user
+User=exim-api
 Restart=always
 Type=simple
-WorkingDirectory=/path/to/app/directory
+WorkingDirectory=/opt/exim-api
 ExecStart=/usr/local/bin/pipenv run gunicorn -c gunicorn.conf.py flasky:app
 
 [Install]
@@ -141,5 +150,5 @@ WantedBy=multi-user.target
 
 ```
 systemctl daemon-reload
-systemctl start app
+systemctl start exim-api
 ```

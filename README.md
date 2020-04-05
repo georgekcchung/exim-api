@@ -73,8 +73,8 @@ response:
   ]
 }
 ```
-
 if the response code is 404, it means the messageId is not found in the mailqueue It could mean the mail was sent successfully.
+
 ---
 Get healthcheck information
 
@@ -111,9 +111,11 @@ response:
 Python 3.6 (3.4-3.8 could work)
 
 # Installation 
+```
 pip3 install pipenv
 cd exim-api/
 pipenv install
+```
 
 ## Run in commandline:
 /usr/local/bin/pipenv run gunicorn -c gunicorn.conf.py flasky:app
@@ -137,5 +139,7 @@ ExecStart=/usr/local/bin/pipenv run gunicorn -c gunicorn.conf.py flasky:app
 WantedBy=multi-user.target
 ```
 
+```
 systemctl daemon-reload
 systemctl start app
+```

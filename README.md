@@ -152,5 +152,17 @@ WantedBy=multi-user.target
 
 ```
 systemctl daemon-reload
+add exim group to exim-api user by editting /etc/group file
 systemctl start exim-api
 ```
+## speed up with Meinheld,  a high-performance WSGI-compliant web server, optional
+run as exim-api user
+/usr/local/bin/pipenv shell
+pip3 install meinheld
+run as root
+edit /lib/systemd/system/exim-api.service
+change ExecStart to
+/usr/local/bin/pipenv run gunicorn --worker-class="egg:meinheld#gunicorn_worker" -c gunicorn.conf.py flasky:app
+systemctl daemon-reload
+systemctl restart exim-api
+

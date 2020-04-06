@@ -1,11 +1,12 @@
 # exim-api
-API for exim server
+Mail queue API for exim/postfix server
 
 forked from https://github.com/icetemple/exim-api
 
 credit: pleshevskiy 
 
 The API server is to provide mail queue information of exim by API
+It supports postfix and exim. Please check config.py to configure the mail server
 
 
 # API documentation

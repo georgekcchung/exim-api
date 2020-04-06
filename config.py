@@ -38,3 +38,14 @@ config = {
 
     'default': ProductionConfig 
 }
+
+# possible option, exim or postfix
+#mailServer = "exim"
+mailServer = "postfix"
+
+# exim binary
+EXIM = '/usr/sbin/exim'
+# postfix sendmail binary
+POSTFIX = '/usr/sbin/sendmail'
+# dig binary
+DIG = '/usr/bin/dig'

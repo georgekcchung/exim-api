@@ -5,8 +5,8 @@ forked from https://github.com/icetemple/exim-api
 
 credit: pleshevskiy 
 
-The API server is to provide mail queue information of exim by API
-It supports postfix and exim. Please check config.py to configure the mail server
+The API server is to provide mail queue information of exim/postfix  
+It supports postfix and exim. Please check config.py to configure the mail server  
 
 
 # API documentation
@@ -91,7 +91,7 @@ response:
 ```
 
 ---
-check if the email address is routable to destination from exim's perspective
+check if the email address is routable to destination from mail server's perspective
 
 POST /check/route/
 
@@ -112,6 +112,10 @@ response:
 Python 3.6 (3.4-3.8 could work)
 OS: CentOS 8.1 ( CentOS 7 should also work)
 
+tested in  
+Exim 4.92.3  
+postfix  3.3.0 (probably work in 2.10.x)  
+
 # Installation 
 run as root
 ```
@@ -127,7 +131,8 @@ cd /opt/mail-queue-api/
 /usr/local/bin/pipenv install
 ```
 
-edit gunicorn.conf.py and config.py for binding IP address
+edit gunicorn.conf.py and config.py for binding IP address  
+change mailServer variable in config.py for correct mail server support  
 
 ## Run in commandline:
 /usr/local/bin/pipenv run gunicorn -c gunicorn.conf.py flasky:app

@@ -168,9 +168,14 @@ run as mail-queue-api user
 pip3 install meinheld
 ```
 run as root
+
 edit /lib/systemd/system/mail-queue-api.service
+
 change ExecStart to
+
 /usr/local/bin/pipenv run gunicorn --worker-class="egg:meinheld#gunicorn_worker" -c gunicorn.conf.py flasky:app
+
 systemctl daemon-reload
+
 systemctl restart mail-queue-api
 

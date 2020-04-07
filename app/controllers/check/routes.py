@@ -13,6 +13,10 @@ def delivery_route():
     if not email:
         return jsonify(error='Email is required'), 422
 
+    regex = '^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$'
+    if re.search(regex, email) == None:
+        return jsonify(code=1, message='invalid email address'), 401
+
     stdout, stderr = check_delivery_route(email)
 
     if mailServer == "exim":
@@ -30,7 +34,6 @@ def delivery_route():
 
     else:
 
-        print(stderr)
         if stderr != "":
             return jsonify(code=2, message='internal error'), 500
 

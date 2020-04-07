@@ -1,4 +1,4 @@
-# exim-api
+# mail-queue-api
 Mail queue API for exim/postfix server
 
 forked from https://github.com/icetemple/exim-api
@@ -116,14 +116,14 @@ OS: CentOS 8.1 ( CentOS 7 should also work)
 run as root
 ```
 cd /opt
-git clone https://github.com/georgekcchung/exim-api.git
+git clone https://github.com/georgekcchung/mail-queue-api.git
 pip3 install pipenv
-useradd exim-api
+useradd mail-queue-api
 ```
 
-run as exim-api user
+run as mail-queue-api user
 ```
-cd /opt/exim-api/
+cd /opt/mail-queue-api/
 /usr/local/bin/pipenv install
 ```
 
@@ -134,17 +134,17 @@ edit gunicorn.conf.py and config.py for binding IP address
 
 ## Run as service in systemd:
 
-add exim-api.service in /lib/systemd/system
+add mail-queue-api.service in /lib/systemd/system
 ```
 [Unit]
 Description=My Python Service
 After=network.target
 
 [Service]
-User=exim-api
+User=mail-queue-api
 Restart=always
 Type=simple
-WorkingDirectory=/opt/exim-api
+WorkingDirectory=/opt/mail-queue-api
 ExecStart=/usr/local/bin/pipenv run gunicorn -c gunicorn.conf.py flasky:app
 
 [Install]
@@ -153,8 +153,8 @@ WantedBy=multi-user.target
 
 ```
 systemctl daemon-reload
-add exim group to exim-api user by editting /etc/group file
-systemctl start exim-api
+add exim group to mail-queue-api user by editting /etc/group file
+systemctl start mail-queue-api
 ```
 ## speed up with Meinheld,  a high-performance WSGI-compliant web server, optional
 run as root
@@ -162,15 +162,15 @@ run as root
 yum group install "Development Tools"
 yum install python36-devel
 ```
-run as exim-api user
+run as mail-queue-api user
 ```
 /usr/local/bin/pipenv shell
 pip3 install meinheld
 ```
 run as root
-edit /lib/systemd/system/exim-api.service
+edit /lib/systemd/system/mail-queue-api.service
 change ExecStart to
 /usr/local/bin/pipenv run gunicorn --worker-class="egg:meinheld#gunicorn_worker" -c gunicorn.conf.py flasky:app
 systemctl daemon-reload
-systemctl restart exim-api
+systemctl restart mail-queue-api
 
